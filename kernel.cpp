@@ -2,6 +2,7 @@
 
 #include "types.h"
 #include "gdt.h"
+#include "interrupts.h"
 
 void printf(char* str){
     static uint16_t* VideoMemory = (uint16_t*)0xb8000;
@@ -57,6 +58,11 @@ extern "C" void kernelMain(void* multiboot_structure, unsigned int magicnumber){
     printf("Hello World! This is Weicheng's Operating System !!! ---\n");
 
     GlobalDescriptorTable gdt;
+    InterruptManager interrupts(&gdt);
+
+
+
+    interrupts.Activate();
 
     while(1);
 }
